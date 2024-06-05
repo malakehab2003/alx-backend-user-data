@@ -44,7 +44,7 @@ class BasicAuth(Auth):
             self,
             decoded_base64_authorization_header: str
     ) -> (str, str):
-        """ encode email and password of the user """
+        """ give email and password of the user """
         if (
             decoded_base64_authorization_header is None or
             not isinstance(decoded_base64_authorization_header, str) or
