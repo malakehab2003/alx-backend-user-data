@@ -55,9 +55,10 @@ class BasicAuth(Auth):
             return None, None
         email_pass = decoded_base64_authorization_header.split(':')
         email = email_pass[0]
-        password = ''
-        for i in range(1, len(email_pass)):
-            password += email_pass[i]
+        password = email_pass[1]
+        for i in range(2, len(email_pass)):
+            word = ':' + email_pass[i]
+            password += word
         return email, password
 
     def user_object_from_credentials(
