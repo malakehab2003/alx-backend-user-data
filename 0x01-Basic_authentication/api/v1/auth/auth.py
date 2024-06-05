@@ -2,12 +2,22 @@
 """ create auth class """
 from flask import request
 from typing import List, TypeVar
+import re
 
 
 class Auth:
     """ manage the API authentication """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ require auth """
+        for i in excluded_paths:
+            if i[-1] == '*':
+                pattern = r"^(.*)\*"
+                match = re.match(pattern, i)
+                part_without_star = match.group(1)
+                if path.startswith(part_without_star):
+                    return False
+                else:
+                    return True
         if path and path[-1] != '/':
             path = path + '/'
         if (excluded_paths is None or
