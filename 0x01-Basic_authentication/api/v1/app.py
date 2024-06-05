@@ -10,6 +10,7 @@ import os
 
 
 from api.v1.auth.auth import Auth
+from api.v1.auth.basic_auth import BasicAuth
 
 
 app = Flask(__name__)
@@ -21,6 +22,8 @@ auth = None
 auth_type = getenv('AUTH_TYPE')
 if auth_type is not None:
     auth = Auth()
+if auth_type == 'basic_auth':
+    auth = BasicAuth()
 
 
 @app.errorhandler(404)
