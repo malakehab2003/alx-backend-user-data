@@ -9,9 +9,9 @@ def filter_datum(
         redaction: str,
         message: str,
         separator: str
-):
+) -> str:
     """ filter data and hide some data """
-    pattern = '|'.join(f'{field}=[^{"{sep}"}]*'
-                       .format(sep=re.escape(separator)) for field in fields)
-    return re.sub(pattern, lambda m: m.group(0)
-                  .split('=')[0] + f'={redaction}', message)
+    for f in fields:
+        message = re.sub(rf"{f}=(.*?)\{separator}",
+                         f'{f}={redaction}{separator}', message)
+    return message
