@@ -3,12 +3,18 @@
 import bcrypt
 from db import DB
 from user import User
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> bytes:
     """ hash a givin password """
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode('utf-8'), salt)
+
+
+def _generate_uuid() -> str:
+    """ generate unique id """
+    return str(uuid4())
 
 
 class Auth:
@@ -42,3 +48,12 @@ class Auth:
             return False
         except Exception:
             return False
+
+    def create_session(self, email: str) -> str:
+        """ create new session """
+        try:
+            user = self._db.find_user_by(email=email)
+        except Exception:
+            return None
+        user.session_id = _generate_uuid()
+        return user.session_id
