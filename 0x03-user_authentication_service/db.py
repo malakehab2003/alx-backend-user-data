@@ -31,7 +31,7 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(
             self,
             email: str,
@@ -42,7 +42,7 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
-    
+
     def find_user_by(self, **kwargs) -> User:
         """ search for a user """
         try:
@@ -52,7 +52,7 @@ class DB:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
-        
+
     def update_user(self, user_id: int, **kwargs) -> None:
         """ update data of the user """
         try:
