@@ -68,7 +68,7 @@ def profile():
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """ take the email and reset token """
-    email = request.cookies.get("email")
+    email = request.form.get("email")
     try:
         AUTH._db.find_user_by(email=email)
     except Exception:
