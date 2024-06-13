@@ -93,6 +93,9 @@ class Auth:
         except Exception:
             raise ValueError
         new_pass = _hash_password(password)
-        user.hashed_password = new_pass
-        user.reset_token = None
+        self._db.update_user(
+            user.id,
+            hashed_password=new_pass,
+            reset_token=None
+        )
         return None
