@@ -98,4 +98,3 @@ class Auth:
             hashed_password=new_pass,
             reset_token=None
         )
-        return None
