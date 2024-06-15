@@ -70,6 +70,7 @@ class Auth:
         return user
 
     def destroy_session(self, user_id: int) -> None:
+        """ destroy session """
         try:
             user = self._db.find_user_by(id=user_id)
         except Exception:
