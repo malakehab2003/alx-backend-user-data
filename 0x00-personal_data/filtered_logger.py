@@ -52,6 +52,20 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return conn
 
 
+def main() -> None:
+    """ the main function """
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users;")
+    for data in cursor:
+        message = f"name={data[0]}; email={data[1]}; phone={data[2]}; " +\
+            f"ssn={data[3]}; password={data[4]};ip={data[5]}; " +\
+            f"last_login={data[6]}; user_agent={data[7]};"
+        print(message)
+    cursor.close()
+    conn.close()
+
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
@@ -74,3 +88,9 @@ class RedactingFormatter(logging.Formatter):
             self.SEPARATOR
         )
         return filtered_message
+
+
+
+if __name__ == '__main__':
+    """ main function """
+    main()
