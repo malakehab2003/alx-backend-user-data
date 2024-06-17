@@ -61,7 +61,10 @@ def authentication():
     if auth:
         if auth.require_auth(request.path, list_path):
             header = auth.authorization_header(request)
-            if auth.authorization_header(request) is None:
+            if (
+                auth.authorization_header(request) is None
+                and auth.session_cookie(request) is None
+            ):
                 abort(401)
             if auth.current_user(request) is None:
                 abort(403)
